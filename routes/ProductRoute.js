@@ -1,25 +1,25 @@
 const express=require("express")
 const {ProductModel} =require("../models/ProductModel")
 
-const productRouter =express.Router()
+const productRoute =express.Router()
 
-productRouter.get("/",async(req,res)=>{
+productRoute.get("/",async(req,res)=>{
     const product =await ProductModel.find()
     res.send(product)
 })
-productRouter.get("/:category",async(req,res)=>{
+productRoute.get("/:category",async(req,res)=>{
     const params=req.params.category
 const product=await ProductModel.find({Category:params})
 res.send(product)
 })
 
-productRouter.get("/id/:id",async(req,res)=>{ 
+productRoute.get("/id/:id",async(req,res)=>{ 
     const params=req.params.id
     const product=await ProductModel.find({_id:params})
     res.send(product)
 }) 
 
-productRouter.post("/create",async(req,res)=>{
+productRoute.post("/create",async(req,res)=>{
     const payload=req.body
     // console.log(payload)
     const post =new ProductModel(payload)
@@ -28,4 +28,4 @@ productRouter.post("/create",async(req,res)=>{
 
 })
 
-module.exports={productRouter}
+module.exports={productRoute}
